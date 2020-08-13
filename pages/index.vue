@@ -51,89 +51,93 @@
               </div>
             </div>
 
-            <div class="choose__items">
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+            <div v-bar="{preventParentScroll: true}" class="choose__items">
+              <div class="choose__items-3">
+                <div class="choose__items-2">
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
-                </div>
-              </div>
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
-                </div>
-              </div>
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
-                </div>
-              </div>
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
-                </div>
-              </div>
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
-                </div>
-              </div>
-              <div class="choose__item">
-                <div class="choose__item-top">
-                  <span class="choose__item-title">
-                    FAMAS
-                  </span>
-                  <span class="choose__item-circle" />
-                </div>
-                <img class="choose__item-img" src="/images/item.png" alt="">
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
+                  <div class="choose__item">
+                    <div class="choose__item-top">
+                      <span class="choose__item-title">
+                        FAMAS
+                      </span>
+                      <span class="choose__item-circle" />
+                    </div>
+                    <img class="choose__item-img" src="/images/item.png" alt="">
 
-                <div class="choose__item-bottom">
-                  <span class="text">Factorthrfhrtg</span>
-                  <span class="num">$130.00</span>
+                    <div class="choose__item-bottom">
+                      <span class="text">Factorthrfhrtg</span>
+                      <span class="num">$130.00</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,56 +239,58 @@
 
           <div v-if="(getCurrentTab === 'bets' && getWindowSize < 1080) || getWindowSize >= 1080" class="history__con">
             <div class="history__bg" />
-            <div class="history">
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
-              <History
-                :cost="12.2"
-                :cost2="15.2"
-                :coeff="2.30"
-                :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
-                avatar="/images/avatar-2.png"
-              />
+            <div v-bar="{preventParentScroll: true}" class="history">
+              <div>
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+                <History
+                  :cost="12.2"
+                  :cost2="15.2"
+                  :coeff="2.30"
+                  :items="['/images/it-1.png', '/images/it-2.png', '/images/it-3.png', 'fergfe']"
+                  avatar="/images/avatar-2.png"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -331,7 +337,7 @@ export default {
       },
       series: [{
         name: 'series1',
-        data: [1, 3, 10, 5]
+        data: [0, 3, 10, 15, 30, 78, 125, 150, 324, 524]
       }],
       chartOptions: {
         chart: {
@@ -349,16 +355,19 @@ export default {
           }
         },
         stroke: {
-          curve: 'straight',
+          curve: 'smooth',
           colors: ['#ffaa00']
         },
         xaxis: {
-          type: 'datetime',
-          categories: [1991, 1992, 1993, 1994],
+          type: 'numeric',
+          categories: [0, 3, 10, 15, 30, 78, 125, 150, 324, 524],
           axisTicks: {
             show: false
           },
           axisBorder: {
+            show: false
+          },
+          labels: {
             show: false
           }
         },
@@ -385,10 +394,10 @@ export default {
         },
         grid: {
           row: {
-            colors: ['rgba(224, 224, 255, 0.1)']
+            colors: ['rgba(224, 224, 255, 0.001)']
           },
           column: {
-            colors: ['rgba(224, 224, 255, 0.1)']
+            colors: ['rgba(224, 224, 255, 0.001)']
           }
         },
         tooltip: {
@@ -496,14 +505,19 @@ export default {
     display: flex
     align-items: center
   &__items
-    display: flex
-    justify-content: space-between
-    flex-wrap: wrap
-    overflow-y: auto
+    overflow-y: hidden
     height: calc(100% - 45px)
     margin-right: -24px
     padding-right: 24px
     background: $dark-gradient
+    &-2
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      overflow: hidden
+    &-3
+      width: calc(100% + 41px) !important
+      padding-right: 24px !important
   &__item
     width: calc(50% - 12px)
     border-radius: 12px
@@ -589,7 +603,7 @@ export default {
     bottom: 0
     left: 0
     width: 100%
-    height: 128px
+    height: 50px
     z-index: 5
     +lg
       height: 80px

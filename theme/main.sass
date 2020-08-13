@@ -1,6 +1,7 @@
 @import './_mix'
 @import './_var'
 @import './components/__icon'
+@import './components/_scroll'
 a
   font-size: inherit
   color: inherit
@@ -110,34 +111,34 @@ button, input, textarea, div, span, a
     color: rgba(255, 255, 255, 0.24)
     cursor: initial
 
-.toggler
-  cursor: pointer
-  position: relative
-  &_active
-    .toggler__way
-      background: #00bbff
-    .toggler__circle
-      background: white
-      right: 2px
-      left: initial
-  &__input
-    display: none
-  &__way
-    width: 40px
-    height: 24px
-    border-radius: 12px
-    background-color: rgba(255, 255, 255, 0.2)
-    cursor: pointer
-  &__circle
-    width: 20px
-    height: 20px
-    border-radius: 12px
-    position: absolute
-    top: 2px
-    left: 2px
-    transition: all 0.5s
-    background: #27273e
-    cursor: pointer
+//.toggler
+//  cursor: pointer
+//  position: relative
+//  &_active
+//    .toggler__way
+//      background: #00bbff
+//    .toggler__circle
+//      background: white
+//      right: 2px
+//      left: initial
+//  &__input
+//    display: none
+//  &__way
+//    width: 40px
+//    height: 24px
+//    border-radius: 12px
+//    background-color: rgba(255, 255, 255, 0.2)
+//    cursor: pointer
+//  &__circle
+//    width: 20px
+//    height: 20px
+//    border-radius: 12px
+//    position: absolute
+//    top: 2px
+//    left: 2px
+//    transition: all 0.5s
+//    background: #27273e
+//    cursor: pointer
 
 .nuxt-content
   +lg
@@ -147,9 +148,11 @@ button, input, textarea, div, span, a
 .toggler
   cursor: pointer
   position: relative
+  z-index: 55
   &_active
     .toggler__way
-      background: #00bbff
+      background: $main-gradient
+      box-shadow: none
     .toggler__circle
       background: white
       right: 2px

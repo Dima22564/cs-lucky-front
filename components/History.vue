@@ -64,12 +64,13 @@ export default {
   display: flex
   align-items: center
   // width: calc(100% + 17px)
+  margin-right: 18px
   &:not(:last-child)
     margin-bottom: 24px
     +lg
       margin-bottom: 16px
   &:last-child
-    margin-bottom: 100px
+    margin-bottom: 70px
     +lg
       margin-bottom: 50px
   &__avatar

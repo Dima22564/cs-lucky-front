@@ -1,64 +1,66 @@
 <template>
   <div class="chat">
-    <div class="chat__messages">
-      <Message
+    <div v-bar="{ preventParentScroll: true }">
+      <div class="chat__messages">
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
         :my="true"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
       />
-      <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-        :my="true"
-      />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
         :my="true"
       />
-      <Message
+        <Message
         :avatar="'dsdf'"
         :time="'7:55 AM'"
         :message="'wow haha'"
         :name="'William'"
         :my="true"
       />
+        <Message
+        :avatar="'dsdf'"
+        :time="'7:55 AM'"
+        :message="'wow haha'"
+        :name="'William'"
+        :my="true"
+      />
+      </div>
     </div>
 
     <form class="chat__input">
@@ -91,8 +93,8 @@ export default {
   border-bottom-left-radius: 40px
   height: 100%
   flex-shrink: 0
-  margin-top: -24px
-  padding: 24px
+  margin: -24px 0 -24px -24px
+  padding: 24px 0 24px 24px
   height: calc(100vh - 98px)
   display: flex
   flex-direction: column
