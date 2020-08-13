@@ -2,64 +2,66 @@
   <div class="chat">
     <div v-bar="{ preventParentScroll: true }">
       <div class="chat__messages">
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-        :my="true"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-        :my="true"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-        :my="true"
-      />
-        <Message
-        :avatar="'dsdf'"
-        :time="'7:55 AM'"
-        :message="'wow haha'"
-        :name="'William'"
-        :my="true"
-      />
+        <div class="chat__wrapper">
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+            :my="true"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+            :my="true"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+            :my="true"
+          />
+          <Message
+            :avatar="'dsdf'"
+            :time="'7:55 AM'"
+            :message="'wow haha'"
+            :name="'William'"
+            :my="true"
+          />
+        </div>
       </div>
     </div>
 
@@ -102,10 +104,15 @@ export default {
   +lg
     height: calc(100vh - 48px - 82px - 24px)
     max-width: 100%
-    margin-top: 0
+    margin: 0 auto 0 auto
     padding: 0
     background: transparent
     position: relative
+    .vb
+      +lg
+        margin-right: -20px
+  &__wrapper
+    padding-right: 30px
   &__messages
     overflow-y: scroll
     height: calc(100% - 40px)

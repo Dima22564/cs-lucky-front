@@ -477,7 +477,7 @@ export default {
     +white(0.06, 'bg')
 
 .choose
-  padding: 24px
+  padding: 24px 0 24px 24px
   background-image: $dark-gradient
   box-shadow: $dark-shadow
   border-radius: 24px
@@ -497,6 +497,7 @@ export default {
     align-items: center
     justify-content: space-between
     margin-bottom: 24px
+    padding-right: 24px
   &__num
     @extend %font-18-24
     letter-spacing: -0.4px
@@ -507,16 +508,16 @@ export default {
   &__items
     overflow-y: hidden
     height: calc(100% - 45px)
-    margin-right: -24px
-    padding-right: 24px
     background: $dark-gradient
     &-2
       display: flex
       justify-content: space-between
       flex-wrap: wrap
       overflow: hidden
+      padding-right: 0
+      +lg
+        padding-right: 24px
     &-3
-      width: calc(100% + 41px) !important
       padding-right: 24px !important
   &__item
     width: calc(50% - 12px)
@@ -525,6 +526,10 @@ export default {
     margin-bottom: 24px
     display: flex
     flex-direction: column
+    +lg
+      width: calc(25% - 12px)
+    +md
+      width: calc(50% - 12px)
     &-img
       width: 70%
       margin: 10px auto
@@ -545,7 +550,7 @@ export default {
       display: flex
       align-items: center
       justify-content: space-between
-      padding: 6px 12px
+      padding: 12px
       @extend %font-10-12
       +white(0.4, 'c')
       .num
@@ -593,8 +598,7 @@ export default {
   position: relative
   +lg
     height: calc(100vh - 48px - 32px - 82px - 72px - 16px)
-    padding-right: 30px
-    margin-right: -30px
+    margin-right: -6px
   &__con
     position: relative
   &__bg
