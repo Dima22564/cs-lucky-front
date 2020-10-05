@@ -6,19 +6,19 @@
     <div v-show="getWindowSize > 1080" class="cs-lucky-container">
       <div class="cs-lucky-menu">
         <div class="cs-lucky-menu__left">
-          <nuxt-link tag="div" to="/" class="cs-lucky-menu__logo">
+          <nuxt-link tag="div" :to="`/?token=${getToken || ''}`" class="cs-lucky-menu__logo">
             LOGO
           </nuxt-link>
           <div class="cs-lucky-menu__links">
-            <nuxt-link exact to="/" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
+            <nuxt-link exact :to="`/?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
               <HomeIcon class="icon icon-30" />
               <span>Home</span>
             </nuxt-link>
-            <nuxt-link exact to="/faq" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
+            <nuxt-link exact :to="`/faq?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
               <CommentIcon class="icon icon-30" />
               <span>FAQ</span>
             </nuxt-link>
-            <nuxt-link to="/support" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active" exact>
+            <nuxt-link :to="`/support/?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active" exact>
               <ForumIcon class="icon icon-30" />
               <span>Support</span>
             </nuxt-link>
@@ -62,38 +62,43 @@
 
         <div class="cs-lucky-menu__right">
           <transition name="fade">
-            <div v-if="isAccountShow" @mouseleave="isAccountShow = false" class="account__drop">
+            <div v-if="isAccountShow && !isEmpty(getUser)" @mouseleave="isAccountShow = false" class="account__drop">
               <p class="account__name">
-                vino_costa
+                {{ getUser.username }}
               </p>
               <nuxt-link class="account__link" to="/dashboard" tag="div">
-                <Dashboard class="icon" />
-                <span>Dashboard</span>
+                <UserIcon class="icon" />
+                <span>Profile</span>
               </nuxt-link>
-              <nuxt-link class="account__link" to="/settings" tag="div">
-                <SettingsIcon class="icon" />
-                <span>Settings</span>
-              </nuxt-link>
-              <nuxt-link class="account__link account__link_logout" to="/signout" tag="div">
+              <button @click.prevent="logout" class="account__link account__link_logout">
                 <LogoutIcon class="icon" />
                 <span>Sign Out</span>
-              </nuxt-link>
+              </button>
             </div>
           </transition>
-          <div @click="isAccountShow ? isAccountShow = false : isAccountShow = true" class="cs-lucky-menu__right-2">
-            <img src="/images/avatar.jpg" alt="" class="cs-lucky-menu__avatar">
+          <div v-if="!isEmpty(getUser)" @click="isAccountShow ? isAccountShow = false : isAccountShow = true" class="cs-lucky-menu__right-2">
+            <img :src="getUser.avatar" alt="" class="cs-lucky-menu__avatar">
             <div class="cs-lucky-menu__wrapper">
               <div class="cs-lucky-menu__text">
                 <p class="cs-lucky-menu__name">
-                  vino_costa
+                  {{ getUser.username }}
                 </p>
                 <p class="cs-lucky-menu__balance">
-                  Balance: <span class="emp">$28,309</span>
+                  Balance: <span class="emp">${{ getUser.balance }}</span>
                 </p>
               </div>
             </div>
           </div>
-          <button @click="showDepositPopup" class="cs-lucky-menu__add">
+          <div v-else class="cs-lucky-menu__login">
+            <a href="http://localhost:8000/api/auth/steam" class="cs-lucky-menu__steam">
+              <SteamIcon class="icon" />
+            </a>
+            <div class="cs-lucky-menu__textSteam">
+              <span class="emp">login through</span>
+              <span class="yellow">STEAM</span>
+            </div>
+          </div>
+          <button @click="showDepositPopup" class="cs-lucky-menu__add btn_primary">
             <PlusIcon />
           </button>
         </div>
@@ -111,6 +116,9 @@ import TelegramIcon from 'vue-material-design-icons/Telegram.vue'
 import VkIcon from 'vue-material-design-icons/Vk.vue'
 import BellIcon from 'vue-material-design-icons/Bell.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
+import SteamIcon from 'vue-material-design-icons/Steam.vue'
+import UserIcon from 'vue-material-design-icons/Account.vue'
+import LogoutIcon from 'vue-material-design-icons/Logout.vue'
 import { eventBus } from '../plugins/event-bus.js'
 import DepositPopup from './Deposit-popup'
 import Notification from './Notification'
@@ -124,10 +132,12 @@ export default {
   computed: {
     ...mapGetters({
       getWindowSize: 'common/getWindowSize',
-      getNotifications: 'notifications/getNotifications'
+      getNotifications: 'notifications/getNotifications',
+      getUser: 'user/getUser',
+      getToken: 'auth/getToken'
     })
   },
-  mounted () {
+  async mounted () {
     const that = this
     this.windowSize = window.innerWidth
     this.setWindowSize(window.innerWidth)
@@ -135,6 +145,9 @@ export default {
       const windowSize = window.innerWidth
       that.setWindowSize(windowSize)
     })
+    const token = this.$route.query.token
+    this.$store.commit('auth/setToken', token)
+    await this.$store.dispatch('user/loadUser')
   },
   created () {
     eventBus.$on('closeNotification', (id) => {
@@ -145,19 +158,33 @@ export default {
     ...mapMutations({
       setWindowSize: 'common/setWindowSize'
     }),
+    isEmpty (ob) {
+      for (const key in ob) {
+        // если тело цикла начнет выполняться - значит в объекте есть свойства
+        return false
+      }
+      return true
+    },
     showNotifications () {
       // this.isLangsShow = false
-      if (this.isNotificationShow === true) {
-        this.isNotificationShow = false
-      } else {
-        this.isNotificationShow = true
-      }
+      this.isNotificationShow = this.isNotificationShow !== true
       // this.isAccountShow = false
       // this.isFinancialShow = false
       // this.isMobileMainMenuShow = false
     },
     showDepositPopup () {
       eventBus.$emit('depositPopupShow')
+    },
+    async logout () {
+      await this.$router.replace({
+        query: ''
+      })
+      await this.$store.dispatch('user/logout')
+    }
+  },
+  sockets: {
+    connect () {
+      console.log('Client io')
     }
   },
   components: {
@@ -169,7 +196,10 @@ export default {
     BellIcon,
     PlusIcon,
     Notification,
-    DepositPopup
+    DepositPopup,
+    SteamIcon,
+    UserIcon,
+    LogoutIcon
   }
 }
 </script>
@@ -183,7 +213,7 @@ export default {
   margin: 0 0 0 -20px
   padding: 0 0 0 20px
   &__left
-    padding-top: 34px
+    padding-top: 24px
     display: flex
     align-items: flex-start
     width: 100%
@@ -200,10 +230,40 @@ export default {
       align-items: center
       position: relative
       cursor: pointer
+  &__login
+    display: flex
+    align-items: center
+  &__steam
+    width: 64px
+    height: 64px
+    border-radius: 24px
+    box-shadow: 8px 8px 24px 0 rgba(9, 14, 20, 0.4), -4px -4px 8px 0 rgba(224, 224, 255, 0.04), 0 1px 1px 0 rgba(9, 14, 20, 0.4)
+    background: linear-gradient(135deg, #2d2f33 1%, #272a2e 52%, #222529)
+    border: none
+    display: flex
+    align-items: center
+    margin-right: 24px
+    justify-content: center
+    .icon
+      color: rgba(224, 224, 255, 0.6)
+  &__textSteam
+    .emp
+    font-size: 20px
+    line-height: 28px
+    letter-spacing: -0.4px
+    font-weight: 600
+    color: white
+    .yellow
+      font-size: 14px
+      line-height: 24px
+      color: #ffaa00
+      font-weight: 600
   &__avatar
     border-radius: 50%
     flex-shrink: 0
     margin-right: 24px
+    width: 64px
+    height: 64px
   &__logo
     margin-right: 48px
   &__links
@@ -334,6 +394,10 @@ export default {
     user-select: none
     &_logout
       margin-top: 16px
+      background: none
+      border: none
+      width: 100%
+      text-align: left
     &:hover
       background: rgba(224, 224, 255, 0.02)
     .icon

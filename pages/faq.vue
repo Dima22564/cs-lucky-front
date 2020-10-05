@@ -3,12 +3,20 @@
     <div class="cs-lucky-container">
       <div class="cs-lucky-row">
         <div class="faqs-content">
-          <div class="faqs__wrapper">
-            <div class="faqs">
-              <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
-              <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
-              <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
-              <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+          <div v-bar="{ preventParentScroll: true }">
+            <div class="faqs__wrapper">
+              <div class="faqs">
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+                <Faq class="faqs__faq" title="Chat rules" text="It is not allowed, if you use more than 1 account at the same time . One of the reasons is about using promo codes and stealing them from other people. For the use of multiple accounts, some measures may be applied: Promo codes bans, Deleting items, Withdrawal bans" />
+              </div>
             </div>
             <div class="faqs__bg" />
           </div>
@@ -46,10 +54,9 @@ export default {
 <style lang="sass">
 @import '../theme/_mix'
 .faqs
-  overflow-y: auto
+  /*overflow-y: auto*/
   height: calc(100vh - 56px - 16px - 98px - 24px)
-  margin: -20px -24px 0 -20px
-  padding: 20px 24px 0 20px
+  padding-right: 24px
   +lg
     height: calc(100vh - 48px - 82px - 24px)
     margin: 0 -20px 0 -20px

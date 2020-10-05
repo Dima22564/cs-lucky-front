@@ -6,20 +6,23 @@
         3+
       </button>
       <div class="historyItem__weapons">
-        <div v-for="(item, index) in items" :key="index" class="historyItem__weaponWrapper">
-          <img :src="item" alt="" class="historyItem__weapon">
+        <div v-for="item in items.slice(0, 3)" :key="item.id" class="historyItem__weaponWrapper">
+          <img :src="item.image" alt="" class="historyItem__weapon">
         </div>
       </div>
     </div>
 
     <div class="historyItem__right">
       <div class="historyItem__info">
-        ${{ cost }}
+        ${{ cost.toFixed(2) }}
       </div>
-      <div class="historyItem__info historyItem__info_green">
+      <div class="historyItem__round" v-if="isWin === null">
+        <span>In Round</span>
+      </div>
+      <div class="historyItem__info" v-if="isWin !== null" :class="{ historyItem__info_green: isWin === 1, historyItem__info_red: isWin === 0 }">
         {{ coeff }}x
       </div>
-      <div class="historyItem__info historyItem__info_l-green">
+      <div class="historyItem__info historyItem__info_l-green" v-if="isWin === 1">
         ${{ cost2 }}
       </div>
     </div>
@@ -42,12 +45,15 @@ export default {
       required: true
     },
     cost2: {
-      type: Number,
+      type: null,
       required: true
     },
     coeff: {
-      type: Number,
+      type: null,
       required: true
+    },
+    isWin: {
+      type: null
     }
   }
 }
@@ -123,6 +129,13 @@ export default {
     margin-left: auto
     display: flex
     align-items: center
+  &__round
+    padding: 10px 56px
+    background-color: rgba(224, 224, 255, 0.02)
+    color: rgba(224, 224, 255, 0.6)
+    font-size: 14px
+    line-height: 16px
+    border-radius: 12px
   &__info
     padding: 6px 21px
     border-radius: 12px
@@ -132,6 +145,8 @@ export default {
     color: $white
     &_green
       background: #16b862
+    &_red
+      background: #f54562
     &_l-green
       background-color: rgba(0, 255, 170, 0.06)
       color: #00ffaa

@@ -1,3 +1,18 @@
+//
+// export const common = {
+//   state: () => ({
+//     windowSize: 0,
+//     currentTab: 'game'
+//   }),
+//   mutations: {
+//
+//   },
+//   getters: {
+//     getWindowSize: state => state.windowSize,
+//     getCurrentTab: state => state.currentTab
+//   }
+// }
+
 export const state = () => ({
   windowSize: 0,
   currentTab: 'game'

@@ -2,7 +2,7 @@
   <div class="chat">
     <div v-bar="{ preventParentScroll: true }">
       <div class="chat__messages">
-        <div class="chat__wrapper">
+        <div class="chat__wrapper-2">
           <Message
             :avatar="'dsdf'"
             :time="'7:55 AM'"
@@ -95,7 +95,7 @@ export default {
   border-bottom-left-radius: 40px
   height: 100%
   flex-shrink: 0
-  margin: -24px 0 -24px -24px
+  margin: -24px 0 -24px 0
   padding: 24px 0 24px 24px
   height: calc(100vh - 98px)
   display: flex
@@ -111,7 +111,7 @@ export default {
     .vb
       +lg
         margin-right: -20px
-  &__wrapper
+  &__wrapper-2
     padding-right: 30px
   &__messages
     overflow-y: scroll

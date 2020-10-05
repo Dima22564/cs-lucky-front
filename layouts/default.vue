@@ -18,6 +18,9 @@ export default {
     Menu,
     MenuTop,
     MenuBottom
+  },
+  mounted () {
+    this.$store.dispatch('auth/autoLogin')
   }
 }
 </script>

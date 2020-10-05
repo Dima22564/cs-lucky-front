@@ -1,9 +1,10 @@
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
   /*
   ** Headers of the page
   */
+  telemetry: false,
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -44,6 +45,10 @@ module.exports = {
     {
       src: '@/plugins/apexCharts',
       ssr: false
+    },
+    {
+      src: '@/plugins/socket',
+      ssr: false
     }
   ],
   /*
@@ -68,6 +73,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'http://127.0.0.1:8000/api'
   },
   /*
   ** Build configuration
