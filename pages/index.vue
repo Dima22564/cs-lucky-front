@@ -5,8 +5,12 @@
         <div class="cs-lucky-main--left">
           <div v-if="(getCurrentTab === 'game' && getWindowSize < 1080) || getWindowSize >= 1080" class="graph">
             <div class="multiplier__wrapper">
-              <div class="multiplier__num" v-if="timeToStart !== 0.00">{{ timeToStart }}s</div>
-              <div class="multiplier__num" v-if="getMultiplier !== '0.00'">{{ getMultiplier }}x</div>
+              <div v-if="timeToStart !== 0.00" class="multiplier__num">
+                {{ timeToStart }}s
+              </div>
+              <div v-if="getMultiplier !== '0.00'" class="multiplier__num">
+                {{ getMultiplier }}x
+              </div>
             </div>
             <apex-charts :options="chartOptions" :series="series" height="100%" />
           </div>
@@ -19,16 +23,30 @@
         <div class="cs-lucky-main--center">
           <div v-if="(getCurrentTab === 'game' && getWindowSize < 1080) || getWindowSize >= 1080" class="knife">
             <div class="knife__left">
-              <img src="/images/knife.png" alt="">
+              <img class="knife__bg" src="/images/betBg.svg" alt="">
+              <div
+                :class="{ 'knife__bets_center': getBetItemsImages.length <= 1 }"
+                class="knife__bets"
+              >
+                <div v-if="getBetItemsImages.length === 0" class="knife__bet" />
+                <div
+                  v-if="getBetItemsImages.length > 0"
+                  v-for="item in getBetItemsImages"
+                  :key="item.id"
+                  class="knife__bet"
+                >
+                  <!--                  <img class="knife__betImg" :src="item.image" alt="">-->
+                </div>
+              </div>
             </div>
             <div class="knife__right">
               <div class="knife__line">
                 <p class="text">
-                  296<span class="emp">.72</span>
+                  {{ transformBetSum[0] }}<span class="emp">.{{ transformBetSum[1] }}</span>
                 </p>
                 <RightIcon class="arrow" />
                 <p class="text">
-                  296<span class="emp">.72</span>
+                  0<span class="emp">.00</span>
                 </p>
               </div>
 
@@ -44,18 +62,19 @@
                   {{ getAutoWithdraw }}
                 </button>
                 <button
-                  class="knife__btn-2 btn_primary"
                   @click.prevent="makeBet"
                   v-if="getGameStatus === 0"
-                  :disabled="getGameStatus !== 0"
+                  :disabled="getGameStatus !== 0 || !getToken"
+                  :class="{ btn_primary_disabled: !getToken || getGameStatus !== 0 }"
+                  class="knife__btn-2 btn_primary"
                 >
                   <span>Start</span>
-                  <span>x1.5</span>
+                  <span>${{ getBetSum }}</span>
                 </button>
                 <button
-                  class="knife__btn-2 btn_primary"
-                  @click.prevent="makeBet"
+                  @click="takeBet"
                   v-if="getGameStatus !== 0"
+                  class="knife__btn-2 btn_primary"
                 >
                   <span>Receive</span>
                   <span>x{{ getMultiplier }}</span>
@@ -99,7 +118,9 @@ export default {
   methods: {
     ...mapMutations({
       setGameStatus: 'game/setGameStatus',
-      setAutoWithdraw: 'bet/setAutoWithdraw'
+      setAutoWithdraw: 'bet/setAutoWithdraw',
+      setMultiplier: 'game/setMultiplier',
+      setAllBets: 'bet/setAllBets'
     }),
     async makeBet () {
       try {
@@ -109,62 +130,12 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    }
-  },
-  async mounted () {
-    try {
-      await this.$store.dispatch('all/all')
-    } catch (e) {
-
-    }
-  },
-  sockets: {
-    timerToStart (num) {
-      this.setGameStatus(0)
-      this.timeToStart = num
-      this.timerToStartInterval = setInterval(() => {
-        if (this.timeToStart !== 0.00) {
-          this.timeToStart = Number((this.timeToStart - 0.1).toFixed(2))
-          // this.m = Number(this.m.toFixed(2).substring(0, 3))
-        } else {
-          clearInterval(this.timerToStartInterval)
-          this.timerToStartInterval = null
-          this.timeToStart = 0.00
-        }
-      }, 100)
     },
-    stopTimer () {
-      clearInterval(this.timerToStartInterval)
-      this.timerToStartInterval = null
-      this.timeToStart = 0.00
-    },
-    gameCrashed (multiplier) {
-      this.setGameStatus(2)
-      clearInterval(this.startGameInterval)
-      this.startGameInterval = null
-      // this.multiplier = parseFloat(String(multiplier)).toFixed(2)
-      setTimeout(() => {
-        // this.multiplier = 0.00
-        this.$store.commit('game/setMultiplier', 0.00)
-        this.$store.commit('bet/setAllBets', [])
-      }, 3000)
-      console.log(multiplier)
-    },
-    startGame (data) {
-      if (this.startGameInterval === null) {
-        this.setGameStatus(1)
-        let _nowOld = 0
-        this.startGameInterval = setInterval(() => {
-          data._i++
-          data._now = parseFloat((Math.E) ** (0.00006 * data._i * 1000 / 20))
-
-          if (Number(_nowOld.toFixed(2)) !== Number(data._now.toFixed(2))) {
-            _nowOld = data._now
-
-            // this.multiplier = Number(parseFloat(String(data._now)).toFixed(2))
-            this.$store.commit('game/setMultiplier', Number(parseFloat(String(data._now)).toFixed(2)))
-          }
-        }, 50)
+    takeBet () {
+      try {
+        this.$socket.emit('takeBet', this.getToken)
+      } catch (e) {
+        console.log(e)
       }
     }
   },
@@ -252,14 +223,75 @@ export default {
       }
     }
   },
+  async mounted () {
+    this.$socket.emit('getGame')
+    try {
+      await this.$store.dispatch('all/all')
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  sockets: {
+    timerToStart (num) {
+      this.setGameStatus(0)
+      this.timeToStart = num
+      this.timerToStartInterval = setInterval(() => {
+        if (this.timeToStart !== 0.00) {
+          this.timeToStart = Number((this.timeToStart - 0.1).toFixed(2))
+        } else {
+          clearInterval(this.timerToStartInterval)
+          this.timerToStartInterval = null
+          this.timeToStart = 0.00
+        }
+      }, 100)
+    },
+    stopTimer () {
+      clearInterval(this.timerToStartInterval)
+      this.timerToStartInterval = null
+      this.timeToStart = 0.00
+    },
+    gameCrashed (multiplier) {
+      this.setGameStatus(2)
+      clearInterval(this.startGameInterval)
+      this.startGameInterval = null
+      this.setMultiplier(Number(parseFloat(String(multiplier)).toFixed(2)))
+      setTimeout(() => {
+        this.setMultiplier(0.00)
+        this.setAllBets([])
+      }, 3000)
+    },
+    startGame (data) {
+      this.setMultiplier(Number(parseFloat(String(data._now)).toFixed(2)))
+      if (this.startGameInterval === null) {
+        this.setGameStatus(1)
+        let _nowOld = 0
+        this.startGameInterval = setInterval(() => {
+          data._i++
+          data._now = parseFloat((Math.E) ** (0.00006 * data._i * 1000 / 20))
+
+          if (Number(_nowOld.toFixed(2)) !== Number(data._now.toFixed(2))) {
+            _nowOld = data._now
+
+            this.setMultiplier(Number(parseFloat(String(data._now)).toFixed(2)))
+          }
+        }, 50)
+      }
+    }
+  },
   computed: {
     ...mapGetters({
       getWindowSize: 'common/getWindowSize',
       getCurrentTab: 'common/getCurrentTab',
       getAutoWithdraw: 'bet/getAutoWithdraw',
       getMultiplier: 'game/getMultiplier',
-      getGameStatus: 'game/getGameStatus'
-    })
+      getGameStatus: 'game/getGameStatus',
+      getToken: 'auth/getToken',
+      getBetSum: 'bet/getBetSum',
+      getBetItemsImages: 'bet/getBetItemsImages'
+    }),
+    transformBetSum () {
+      return this.getBetSum.toFixed(2).split('.')
+    }
   }
 }
 </script>
@@ -300,6 +332,8 @@ export default {
       max-width: 100%
       width: 100%
       padding: 0
+      display: flex
+      flex-direction: column
 .apexcharts-toolbar
   display: none !important
 .players
@@ -347,27 +381,10 @@ export default {
   padding: 12px
   margin-bottom: 24px
   box-shadow: $dark-shadow
+  +lg
+    margin-bottom: 16px
   .slick-slide
     margin-right: 12px
-  &__coeff
-    @extend %btn-refresh
-    font-size: 16px
-    line-height: 24px
-    padding: 10px 16px
-    border-radius: 12px
-    border: solid 2px #c32de1
-    background-color: rgba(195, 45, 225, 0.06)
-    color: $white
-    font-weight: bold
-    &_red
-      border: solid 2px #ff00aa
-      background-color: rgba(255, 0, 170, 0.06)
-    &_green
-      border: solid 2px #00ffaa
-      background-color: rgba(0, 255, 170, 0.06)
-    &_blue
-      border: solid 2px #00bbff
-      background-color: rgba(0, 187, 255, 0.06)
 
 .history
   height: calc(100vh - 72px - 72px - 120px - 228px)
@@ -408,21 +425,64 @@ export default {
   margin-bottom: 24px
   overflow: hidden
   display: flex
+  +lg
+    order: 5
+    margin-bottom: 0
+  &__bets
+    display: flex
+    z-index: 5
+    position: relative
+    align-items: center
+    justify-content: flex-start
+    width: 100%
+    padding-left: 34px
+    &_center
+      justify-content: center
+      padding-left: 24px
+  &__bg
+    position: absolute
+  &__betImg
+    width: 88px
+    height: 88px
+  &__bet
+    width: 88px
+    height: 88px
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 50%
+    box-shadow: 8px 8px 24px 0 rgba(9, 14, 20, 0.4), -4px -4px 8px 0 rgba(224, 224, 255, 0.04), 0 1px 1px 0 rgba(9, 14, 20, 0.4), inset 0 -2px 1px 0 rgba(9, 14, 20, 0.8)
+    background-image: linear-gradient(to bottom, #383a3d, #2d2f33)
+    &:not(:first-child)
+      margin-left: 12px
   &__left
     position: relative
-    height: 100%
+    //height: 100%
     margin-right: 25px
+    width: 332px
+    height: 228px
+    display: flex
+    align-items: center
+    justify-content: center
     +media(1400)
       display: none
   &__right
     padding: 24px
-    width: 100%
+    width: 310px
+    margin-left: auto
   &__coeffs
     display: flex
     align-items: center
     justify-content: space-between
     width: 100%
     margin-bottom: 24px
+    +media(1400)
+      flex-wrap: wrap
+      margin-bottom: 16px
+    .coeff
+      +media(1400)
+        width: calc(50% - 4px)
+        margin-bottom: 8px
   &__btn-1
     padding: 12px 36px 12px 16px
     color: $white
@@ -434,6 +494,7 @@ export default {
     font-weight: bold
     border-radius: 24px 12px 12px 24px
     margin-right: 4px
+    width: 72px
   &__btn-2
     padding: 12px 16px
     border: none
@@ -447,6 +508,10 @@ export default {
     justify-content: space-between
     max-width: 229px
     width: 100%
+    +media(1400)
+      width: 100%
+      max-width: 100%
+      margin-right: 0
   &__btns
     display: flex
     align-items: center

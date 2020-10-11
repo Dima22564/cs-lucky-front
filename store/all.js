@@ -3,6 +3,7 @@ export const actions = {
     try {
       const result = await this.$axios.$get(`${this.$axios.defaults.baseURL}/all`)
       commit('bet/setAllBets', result.data.bets, { root: true })
+      commit('game/setLastGames', result.data.games, { root: true })
       console.log(result)
     } catch (e) {
 

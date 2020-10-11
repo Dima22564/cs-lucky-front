@@ -15,6 +15,9 @@ export const actions = {
     commit('game/setLastGames', data.games, { root: true })
     eventBus.$emit('loadSlider', true)
   },
+  SOCKET_betTaken ({ commit }, bet) {
+    console.log(bet)
+  },
   nuxtServerInit ({ dispatch }) {
     dispatch('auth/autoLogin')
   }

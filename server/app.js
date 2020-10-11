@@ -48,6 +48,27 @@ io.on('connection', (socket) => {
     AUTO_WITHDRAW[autoWithdraw].push(bet)
     console.log(AUTO_WITHDRAW)
   })
+
+  socket.on('takeBet', async (token) => {
+    if (!token) {
+    } else {
+      const data = {
+        multiplier: _now
+      }
+      console.log(data)
+      try {
+        const result = await axios.post(`${axios.defaults.baseURL}/game/take-bet`, data, { headers: { Authorization: `Bearer ${token}` } })
+        io.sockets.emit('betTaken', result.data.data.bet)
+        console.log(result.data)
+      } catch (e) {
+        console.log(e.response.data)
+      }
+    }
+  })
+
+  socket.on('getGame', () => {
+
+  })
 })
 
 const startTimer = () => {
@@ -120,7 +141,6 @@ const startGame = () => {
             }
           }
         }
-        //  TODO auto withdraw
       }
     }
   }, 50)

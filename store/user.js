@@ -13,7 +13,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async loadUser ({ commit, rootGetters }) {
+  async loadUser ({ commit, rootGetters, dispatch }) {
+    // dispatch('auth/autoLogin', 'dd', { root: true })
     try {
       if (rootGetters['auth/getToken']) {
         this.$axios.setToken(rootGetters['auth/getToken'], 'Bearer')
@@ -39,9 +40,8 @@ export const actions = {
       this.$axios.setToken(rootGetters['auth/getToken'], 'Bearer')
       const result = await this.$axios.$get(`${this.$axios.defaults.baseURL}/inventory`)
       commit('setInventory', result.data.inventory)
-      console.log(result)
     } catch (e) {
-      console.log(e)
+      throw e
     }
   }
 }

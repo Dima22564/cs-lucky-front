@@ -1,6 +1,6 @@
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -20,7 +20,14 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#ffaa00' },
+  // loading: { color: '#ffaa00' },
+  // loading: '~/components/preloader/preloader.vue',
+  loadingIndicator: '~/components/preloader/preloader.html',
+  // loadingIndicator: {
+  //   name: 'circle',
+  //   color: '#3B8070',
+  //   background: 'white'
+  // },
   /*
   ** Global CSS
   */
@@ -48,6 +55,10 @@ module.exports = {
     },
     {
       src: '@/plugins/socket',
+      ssr: false
+    },
+    {
+      src: '@/plugins/swiper',
       ssr: false
     }
   ],

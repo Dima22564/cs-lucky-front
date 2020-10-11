@@ -12,6 +12,7 @@
           :items="item.items"
           :avatar="item.user.avatar"
           :is-win="item.isWin"
+          :win-item="item.winItem"
         />
       </div>
     </div>

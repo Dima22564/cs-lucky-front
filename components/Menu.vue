@@ -6,19 +6,19 @@
     <div v-show="getWindowSize > 1080" class="cs-lucky-container">
       <div class="cs-lucky-menu">
         <div class="cs-lucky-menu__left">
-          <nuxt-link tag="div" :to="`/?token=${getToken || ''}`" class="cs-lucky-menu__logo">
-            LOGO
+          <nuxt-link :to="`/`" tag="div" class="cs-lucky-menu__logo">
+            CSlucky
           </nuxt-link>
           <div class="cs-lucky-menu__links">
-            <nuxt-link exact :to="`/?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
+            <nuxt-link :to="`/`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
               <HomeIcon class="icon icon-30" />
               <span>Home</span>
             </nuxt-link>
-            <nuxt-link exact :to="`/faq?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
+            <nuxt-link :to="`/faq`" exact tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active">
               <CommentIcon class="icon icon-30" />
               <span>FAQ</span>
             </nuxt-link>
-            <nuxt-link :to="`/support/?token=${getToken || ''}`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active" exact>
+            <nuxt-link :to="`/support`" tag="div" class="cs-lucky-menu__link" active-class="cs-lucky-menu__link_active" exact>
               <ForumIcon class="icon icon-30" />
               <span>Support</span>
             </nuxt-link>
@@ -146,7 +146,10 @@ export default {
       that.setWindowSize(windowSize)
     })
     const token = this.$route.query.token
-    this.$store.commit('auth/setToken', token)
+    if (token) {
+      this.setToken(token)
+    }
+    await this.$store.dispatch('auth/autoLogin', token)
     await this.$store.dispatch('user/loadUser')
   },
   created () {
@@ -156,7 +159,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setWindowSize: 'common/setWindowSize'
+      setWindowSize: 'common/setWindowSize',
+      setToken: 'auth/setToken'
     }),
     isEmpty (ob) {
       for (const key in ob) {
@@ -266,6 +270,11 @@ export default {
     height: 64px
   &__logo
     margin-right: 48px
+    font-size: 24px
+    line-height: 32px
+    font-weight: 600
+    letter-spacing: -1px
+    cursor: pointer
   &__links
     display: flex
     align-items: center

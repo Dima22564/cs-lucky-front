@@ -19,8 +19,8 @@ export default {
     MenuTop,
     MenuBottom
   },
-  mounted () {
-    this.$store.dispatch('auth/autoLogin')
+  async mounted () {
+    await this.$store.dispatch('auth/autoLogin')
   }
 }
 </script>

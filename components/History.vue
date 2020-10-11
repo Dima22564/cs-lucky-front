@@ -16,20 +16,28 @@
       <div class="historyItem__info">
         ${{ cost.toFixed(2) }}
       </div>
-      <div class="historyItem__round" v-if="isWin === null">
+      <div v-if="isWin === null" class="historyItem__round">
         <span>In Round</span>
       </div>
-      <div class="historyItem__info" v-if="isWin !== null" :class="{ historyItem__info_green: isWin === 1, historyItem__info_red: isWin === 0 }">
+      <div v-if="isWin !== null" :class="{ historyItem__info_green: isWin === 1, historyItem__info_red: isWin === 0 }" class="historyItem__info">
         {{ coeff }}x
       </div>
-      <div class="historyItem__info historyItem__info_l-green" v-if="isWin === 1">
+      <div v-if="isWin === 1" class="historyItem__info historyItem__info_l-green">
         ${{ cost2 }}
       </div>
+    </div>
+
+    <div v-if="(winItem && getWindowSize > 1220) || (isWin === 0 && getWindowSize > 1220)" class="historyItem__win">
+      <img v-if="winItem" :src="winItem.image" class="historyItem__imgWin" alt="">
+      <img v-show="isWin === 0" src="/images/loose.svg" alt="" class="historyItem__winImg">
+      <img v-show="isWin === 1" src="/images/win.svg" alt="" class="historyItem__winImg historyItem__winImg_win">
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     avatar: {
@@ -54,7 +62,16 @@ export default {
     },
     isWin: {
       type: null
+    },
+    winItem: {
+      type: Object,
+      required: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      getWindowSize: 'common/getWindowSize'
+    })
   }
 }
 </script>
@@ -71,6 +88,10 @@ export default {
   align-items: center
   // width: calc(100% + 17px)
   margin-right: 18px
+  overflow: hidden
+  +media(1475)
+    margin-left: 0
+    justify-content: flex-start
   &:not(:last-child)
     margin-bottom: 24px
     +lg
@@ -107,7 +128,8 @@ export default {
   &__wrapper
     margin-right: 38px
     position: relative
-    +media(1330)
+    width: 216px
+    +media(1475)
       display: none
   &__weapon
     width: 70%
@@ -129,6 +151,8 @@ export default {
     margin-left: auto
     display: flex
     align-items: center
+    +media(1475)
+      width: 100%
   &__round
     padding: 10px 56px
     background-color: rgba(224, 224, 255, 0.02)
@@ -136,6 +160,35 @@ export default {
     font-size: 14px
     line-height: 16px
     border-radius: 12px
+    margin-right: 117px
+    +media(1475)
+      margin-right: 0
+    +media(1220)
+      font-size: 13px
+      padding: 10px 20px
+  &__win
+    position: relative
+    margin: -12px -12px -12px 0
+    height: 72px
+    display: flex
+    align-items: center
+    justify-content: center
+  &__winBg
+    position: absolute
+  &__winImg
+    width: 70px
+    height: 100%
+    position: absolute
+    right: -10px
+    top: 0
+    &_win
+      top: initial
+      bottom: 0
+  &__imgWin
+    width: 48px
+    height: 48px
+    margin-right: 20px
+    z-index: 5
   &__info
     padding: 6px 21px
     border-radius: 12px
@@ -143,11 +196,19 @@ export default {
     font-size: 14px
     font-weight: bold
     color: $white
+    +media(1220)
+      padding: 6px 15px
     &_green
       background: #16b862
     &_red
       background: #f54562
+      margin-right: 205px
+      +media(1475)
+        margin-right: 50px
     &_l-green
       background-color: rgba(0, 255, 170, 0.06)
       color: #00ffaa
+      margin-right: 82px
+      +media(1530)
+        margin-right: 18px
 </style>

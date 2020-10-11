@@ -25,10 +25,13 @@ export const actions = {
 
     const cookies = Cookie.parse(cookieStr || '') || {}
     const token = cookies.token
+    console.log(token)
+
     if (isJWTValid(token)) {
       commit('setToken', token)
     } else {
       // dispatch('logOut')
+      console.log('invalid')
       commit('deleteToken')
     }
   }
@@ -39,6 +42,8 @@ export const getters = {
 }
 
 function isJWTValid (token) {
+  console.log(token)
+
   if (!token) {
     return false
   }

@@ -1,3 +1,5 @@
+import { eventBus } from '@/plugins/event-bus'
+
 export const state = () => ({
   multiplier: 0.00,
   status: 0,
@@ -13,6 +15,7 @@ export const mutations = {
   },
   setLastGames (state, games) {
     state.lastGames = games
+    eventBus.$emit('loadSlider', true)
   }
 }
 
@@ -23,6 +26,13 @@ export const actions = {
   },
   async gamePrepare () {
     await this.$axios.get('/game-prepare')
+  },
+  async index (ctx, hash) {
+    try {
+      return await this.$axios.$get(`${this.$axios.defaults.baseURL}/game/${hash}`)
+    } catch (e) {
+      throw e.response
+    }
   }
 }
 
