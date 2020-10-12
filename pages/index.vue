@@ -35,7 +35,7 @@
                   :key="item.id"
                   class="knife__bet"
                 >
-                  <!--                  <img class="knife__betImg" :src="item.image" alt="">-->
+                  <img class="knife__betImg" :src="item.image" alt="">
                 </div>
               </div>
             </div>
@@ -276,6 +276,15 @@ export default {
           }
         }, 50)
       }
+    },
+    setGame (data) {
+      console.log(data)
+      this.setMultiplier(data.multiplier)
+      this.setGameStatus(data.status)
+      this.timeToStart = data.time
+    },
+    betTaken (data) {
+      console.log(data)
     }
   },
   computed: {

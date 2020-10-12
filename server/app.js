@@ -67,7 +67,33 @@ io.on('connection', (socket) => {
   })
 
   socket.on('getGame', () => {
+    const result = {
+      status: 0,
+      time: 0.00,
+      multiplier: 0
+    }
 
+    if (_now > 0) {
+      if (_now >= MULTIPLIER) {
+        result.multiplier = MULTIPLIER
+        result.status = 2
+      } else {
+        result.multiplier = _now
+        result.status = 1
+        socket.emit('startGame', {
+          _i,
+          _now
+        })
+      }
+    } else if (TIME_TO_START > 0) {
+      result.time = TIME_TO_START.toFixed(2)
+      socket.emit('timerToStart', TIME_TO_START)
+    } else if (_now >= MULTIPLIER) {
+      result.multiplier = MULTIPLIER
+      result.status = 2
+    }
+
+    socket.emit('setGame', result)
   })
 })
 
@@ -205,7 +231,7 @@ const getGame = async () => {
 }
 
 // Начинаем игру со стартом сервера
-// getGame()
+getGame()
 
 module.exports = {
   app,
